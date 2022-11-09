@@ -14,11 +14,13 @@ function App() {
       value: "",
     },
   ]);
+  const [fields, setFields] = useState([]);
 
-  const handleInputChange = (index, evnt) => {
-    const { name, value } = evnt.target;
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
     const list = [...inputFields];
     list[index][name] = value;
+
     setInputFields(list);
   };
 
@@ -61,8 +63,22 @@ function App() {
 
   const createGroup = (e) => {
     e.preventDefault();
-    console.log(title);
-    console.log(inputFields);
+    setFields([...inputFields]);
+    console.log(title, inputFields);
+  };
+
+  const deleteFontField = (i) => {
+    setFields(fields.filter((field, index) => index !== i));
+  };
+
+  const editFontField = (i) => {
+    console.log(i);
+    const original = [...fields];
+    original[i] = { fontName: "Edited", value: "Edited" };
+
+    setFields(original);
+
+    console.log(original[i]);
   };
 
   useEffect(() => {
@@ -141,6 +157,7 @@ function App() {
                   value={value}
                   onChange={(e) => handleInputChange(index, e)}
                 >
+                  <option value="">Select a font</option>
                   {fonts.map((font, index) => (
                     <option value={font} key={index}>
                       {font}
@@ -171,6 +188,48 @@ function App() {
         >
           + Add Row
         </button>
+      </div>
+      <div className="all-font-group">
+        <h4>our font groups</h4>
+        <p>list of all available font groups.</p>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Fonts</th>
+              <th>Count</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {fields.map((field, index) => (
+              <tr key={index}>
+                <td>{field.fontName}</td>
+                <td>{field.value}</td>
+                <td>1</td>
+                <td>
+                  <h6
+                    style={{ cursor: "pointer" }}
+                    onClick={() => editFontField(index)}
+                    className="text-info"
+                  >
+                    Edit
+                  </h6>
+                </td>
+                <td>
+                  <h6
+                    style={{ cursor: "pointer" }}
+                    onClick={() => deleteFontField(index)}
+                    className="text-danger"
+                  >
+                    Delete
+                  </h6>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </main>
   );
