@@ -1,0 +1,27 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p::first-letter {
+  text-transform: capitalize;
+}
+
+.sc-bcXHqe {
+  height: 90px !important;
+  background-color: #f5f6fa !important;
+}
+
+.lkjDVC {
+  border: none !important;
+  max-width: 100% !important;
+}
+
+.sc-hLBbgP {
+  font-size: 1.5rem !important;
+}
+
+.file-types {
+  font-weight: bold;
+}
