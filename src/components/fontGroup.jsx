@@ -11,8 +11,7 @@ const FontGroup = ({ fonts, setFields }) => {
     },
   ]);
 
-  const createGroup = (e) => {
-    e.preventDefault();
+  const getGroupValues = () => {
     if (title.trim().length === 0) return null;
     let group = [...inputFields];
     const getValues = group.reduce((a, c) => {
@@ -20,30 +19,31 @@ const FontGroup = ({ fonts, setFields }) => {
       a[c.fontName].push(c.value);
       return a;
     }, {});
-    let getStructuredValues = Object.entries(getValues).map(
-      ([fontName, value]) => ({
-        fontName,
-        value: Array.from(new Set(value)).filter(Boolean),
-      })
-    );
-    for (let item of getStructuredValues) {
+    return Object.entries(getValues).map(([fontName, value]) => ({
+      fontName,
+      value: Array.from(new Set(value)).filter(Boolean),
+    }));
+  };
+
+  const createGroup = (e) => {
+    e.preventDefault();
+    const groups = getGroupValues();
+    for (let item of groups) {
       if (Array.from(new Set(item.value)).filter(Boolean).length < 2) {
-        toast.error("Please select at least 2 fonts");
+        toast.error("Please select at least 2 fonts for each group");
         return;
       }
     }
-    setFields(getStructuredValues);
+
+    setFields([...groups]);
     setInputFields([{ fontName: "", value: "" }]);
     setTitle("");
   };
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
     const list = [...inputFields];
-
     if (value === "Select a font") return null;
-
     list[index][name] = value;
-
     setInputFields(list);
   };
 
