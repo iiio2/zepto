@@ -1,6 +1,6 @@
 import { FileUploader } from "react-drag-drop-files";
 
-const FileInput = ({ file, setFile }) => {
+const FileInput = ({ setFile }) => {
   const fileTypes = ["TTF"];
   const handleChange = (file) => {
     setFile(file);
