@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import _ from "lodash";
 
 const FontGroup = ({ fonts, setFields }) => {
@@ -25,6 +26,12 @@ const FontGroup = ({ fonts, setFields }) => {
         value: Array.from(new Set(value)).filter(Boolean),
       })
     );
+    for (let item of getStructuredValues) {
+      if (Array.from(new Set(item.value)).filter(Boolean).length < 2) {
+        toast.error("Please select at least 2 fonts");
+        return;
+      }
+    }
     setFields(getStructuredValues);
     setInputFields([{ fontName: "", value: "" }]);
     setTitle("");
