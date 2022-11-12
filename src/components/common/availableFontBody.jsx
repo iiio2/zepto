@@ -1,12 +1,16 @@
+import { toast } from "react-toastify";
+
 const AvailableFontBody = ({ fields, setFields }) => {
   const deleteFontField = (i) => {
     setFields(fields.filter((field, index) => index !== i));
+    toast.error("Font group deleted");
   };
   const editFontField = (i) => {
     const original = [...fields];
     original[i] = { fontName: "Edited", value: ["Edited"] };
 
     setFields(original);
+    toast.info("Font group edited");
   };
 
   const format = (field) => {

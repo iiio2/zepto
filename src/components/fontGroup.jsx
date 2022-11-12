@@ -38,6 +38,7 @@ const FontGroup = ({ fonts, setFields }) => {
     setFields([...groups]);
     setInputFields([{ fontName: "", value: "" }]);
     setTitle("");
+    toast.success("Font group added");
   };
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
